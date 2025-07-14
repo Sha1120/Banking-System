@@ -10,6 +10,8 @@ import java.time.LocalDateTime;
 @Table(name = "online_transaction")
 @NamedQueries({
         @NamedQuery(name = "OnlineTransaction.findByAccountNumber" ,query ="select ot from OnlineTransaction ot where ot.fromAccount =:fromAccount ORDER BY ot.transactionDate DESC" ),
+        @NamedQuery(name="OnlineTransaction.findAll",query = "select ot from OnlineTransaction ot order by ot.transactionDate DESC"),
+        @NamedQuery(name = "OnlineTransaction.findByDate", query = "select ot from OnlineTransaction ot where ot.transactionDate BETWEEN :from AND :to order by ot.transactionDate desc ")
 })
 public class OnlineTransaction implements Serializable {
 

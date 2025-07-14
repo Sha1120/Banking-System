@@ -87,12 +87,12 @@
     </div>
 
     <div class="section">
-        <h2>Available Users</h2>
+        <h2>Available Cashiers</h2>
 
         <div style="margin-bottom: 15px;">
             <a href="${pageContext.request.contextPath}/manager/add_user.jsp"
                style="padding: 10px 15px; background-color: #27ae60; color: white; text-decoration: none; border-radius: 5px;">
-                + Add New User
+                + Register New Cashier
             </a>
         </div>
 
@@ -153,7 +153,7 @@
             </div>
             <div class="card">
                 <h3>Daily Balance Update</h3>
-                <p>Runs Daily at 2:00 AM</p>
+                <p>Runs Daily at 12:00 AM</p>
                 <p>Status: <strong>Active</strong></p>
             </div>
         </div>

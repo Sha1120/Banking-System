@@ -47,6 +47,21 @@
         </dependency>
         <dependency>
             <groupId>lk.jiat.app</groupId>
+            <artifactId>manualtransaction</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>lk.jiat.app</groupId>
+            <artifactId>timer</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>lk.jiat.app</groupId>
+            <artifactId>scheduleTransactions</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>lk.jiat.app</groupId>
             <artifactId>web</artifactId>
             <version>1.0</version>
             <type>war</type>
@@ -77,6 +92,21 @@
                             <groupId>lk.jiat.app</groupId>
                             <artifactId>onlinetransaction</artifactId>
                             <bundleFileName>online-transaction-module.jar</bundleFileName>
+                        </ejbModule>
+                        <ejbModule>
+                            <groupId>lk.jiat.app</groupId>
+                            <artifactId>manualtransaction</artifactId>
+                            <bundleFileName>manual-transaction-module.jar</bundleFileName>
+                        </ejbModule>
+                        <ejbModule>
+                            <groupId>lk.jiat.app</groupId>
+                            <artifactId>timer</artifactId>
+                            <bundleFileName>timer-module.jar</bundleFileName>
+                        </ejbModule>
+                        <ejbModule>
+                            <groupId>lk.jiat.app</groupId>
+                            <artifactId>scheduleTransactions</artifactId>
+                            <bundleFileName>schedule-transaction-module.jar</bundleFileName>
                         </ejbModule>
                         <webModule>
                             <groupId>lk.jiat.app</groupId>

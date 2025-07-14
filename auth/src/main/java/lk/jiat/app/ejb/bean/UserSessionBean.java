@@ -3,8 +3,8 @@ package lk.jiat.app.ejb.bean;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.PersistenceContext;
+import lk.jiat.app.core.interceptor.Logged;
 import lk.jiat.app.core.model.Status;
 import lk.jiat.app.core.model.UserType;
 import lk.jiat.app.core.model.User;
@@ -12,6 +12,7 @@ import lk.jiat.app.core.service.UserService;
 
 import java.util.List;
 
+@Logged
 @Stateless
 public class UserSessionBean implements UserService {
 
@@ -30,24 +31,28 @@ public class UserSessionBean implements UserService {
                 .setParameter("email", email).getSingleResult();
     }
 
+
+    @RolesAllowed({"MANAGER"})
     @Override
     public void addUser(User user) {
 
         em.persist(user);
     }
 
-    @RolesAllowed({"MANAGER","ADMIN","SUPER_ADMIN"})
+
     @Override
     public void updateUser(User user) {
+
         em.merge(user);
     }
 
-    @RolesAllowed({"MANAGER","ADMIN","SUPER_ADMIN"})
+    @RolesAllowed({"MANAGER"})
     @Override
     public void deleteUser(Long id) {
         em.remove(em.find(User.class, id));
     }
 
+    @RolesAllowed({"MANAGER"})
     @Override
     public List<User> getAllUsers() {
         return em.createNamedQuery("User.findAll", User.class)
@@ -84,8 +89,6 @@ public class UserSessionBean implements UserService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return false;
     }
-
 }

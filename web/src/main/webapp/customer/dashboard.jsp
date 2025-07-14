@@ -343,7 +343,7 @@
             </div>
             <div class="info">
                 <span>Total Amount</span>
-                <span>Rs. <%= customer.getBalance() %> .00</span>
+                <span>Rs. <%= customer.getBalance() %> </span>
             </div>
             <div class="badge"><%= customer.getAccountType()%></div>
 

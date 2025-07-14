@@ -56,6 +56,6 @@ public class Register extends HttpServlet {
         MailServiceProvider.getInstance().sendMail(mail);
 
         // Redirect to login
-        response.sendRedirect(request.getContextPath() + "/manager/manager_login.jsp");
+        response.sendRedirect(request.getContextPath() + "/manager_login.jsp");
     }
 }

@@ -1,6 +1,13 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+    String role = (String) session.getAttribute("role");
+    if (role == null || !role.equals("CASHIER")) {
+        response.sendRedirect(request.getContextPath() + "/unauthorized.jsp");
+    }
+%>
+
 
 <html>
 <head>
@@ -60,6 +67,12 @@
         ul li {
             margin: 8px 0;
         }
+
+        .functions{
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+        }
     </style>
 </head>
 <body>
@@ -72,11 +85,32 @@
     </div>
 </div>
 
-<div style="margin-top: 25px;">
-    <a href="${pageContext.request.contextPath}/cashier/create_newAccount.jsp"
-       style="padding: 10px 15px; background-color: #bf3f11; color: white; text-decoration: none; border-radius: 5px;">
-        + Add New Account
-    </a>
+<%
+    String msg = request.getParameter("msg");
+    if (msg != null) {
+%>
+<div style="background-color: #d4edda; color: #155724; padding: 15px; border-radius: 8px;margin-top: 20px; margin-bottom: 20px; font-weight: bold;">
+    <%= msg %>
+</div>
+<%
+    }
+%>
+
+<div class="functions">
+    <div style="margin-top: 25px;">
+        <a href="${pageContext.request.contextPath}/cashier/create_newAccount.jsp"
+           style="padding: 10px 15px; background-color: #bf3f11; color: white; text-decoration: none; border-radius: 5px;">
+            + Add New Account
+        </a>
+    </div>
+
+
+    <div style="margin-top: 25px;">
+        <a href="${pageContext.request.contextPath}/cashier/schedule_transfer..jsp"
+           style="padding: 10px 15px; background-color: #0c5aa6; color: white; text-decoration: none; border-radius: 5px;">
+            Schedule Transaction
+        </a>
+    </div>
 </div>
 
 <div class="section">
@@ -90,12 +124,12 @@
         <div class="card">
             <h3>View Customer Info</h3>
             <p>Search and manage customer accounts.</p>
-            <a href="${pageContext.request.contextPath}/cashier/customers.jsp" class="link-btn">Search Customers</a>
+            <a href="${pageContext.request.contextPath}/cashier/accounts" class="link-btn">Search Customers</a>
         </div>
         <div class="card">
             <h3>Generate Receipts</h3>
             <p>Print and download recent transaction slips.</p>
-            <a href="${pageContext.request.contextPath}/cashier/receipts.jsp" class="link-btn">View Receipts</a>
+            <a href="${pageContext.request.contextPath}/cashier/today_transactions" class="link-btn">View Receipts</a>
         </div>
     </div>
 </div>
@@ -103,9 +137,8 @@
 <div class="section">
     <h2>Daily Tools</h2>
     <ul>
-        <li><a class="link-btn" href="#">View Transaction History</a></li>
-        <li><a class="link-btn" href="#">Balance Inquiry</a></li>
-        <li><a class="link-btn" href="#">End of Day Summary</a></li>
+        <li><a class="link-btn" href="${pageContext.request.contextPath}/all_transactions">View Transaction History</a></li>
+        <li><a class="link-btn" href="${pageContext.request.contextPath}/check_balance">Balance Inquiry</a></li>
     </ul>
 </div>
 </body>

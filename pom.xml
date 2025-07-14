@@ -15,6 +15,9 @@
         <module>ear</module>
         <module>account</module>
         <module>onlinetransaction</module>
+        <module>manualtransaction</module>
+        <module>timer</module>
+        <module>scheduleTransactions</module>
     </modules>
 
     <properties>

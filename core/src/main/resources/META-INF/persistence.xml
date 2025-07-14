@@ -5,6 +5,8 @@
         <class>lk.jiat.app.core.model.User</class>
         <class>lk.jiat.app.core.model.Account</class>
         <class>lk.jiat.app.core.model.OnlineTransaction</class>
+        <class>lk.jiat.app.core.model.ManualTransaction</class>
+        <class>lk.jiat.app.core.model.ScheduledTransfer</class>
         <shared-cache-mode>NONE</shared-cache-mode>
         <properties>
             <property name="jakarta.persistence.schema-generation.database.action" value="create"/>

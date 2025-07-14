@@ -1,6 +1,8 @@
 package lk.jiat.app.web.servlet;
 
 import jakarta.ejb.EJB;
+import jakarta.inject.Inject;
+import jakarta.security.enterprise.SecurityContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -17,6 +19,7 @@ public class LoginCashier extends HttpServlet {
     @EJB
     private UserService userService;
 
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -27,16 +30,19 @@ public class LoginCashier extends HttpServlet {
         boolean isValid = userService.cashierLogin(c_email, employeeCode);
 
         if (isValid) {
-            User user = userService.getUserByEmail(c_email); // Fix: Get user separately
-            request.getSession().setAttribute("user", user);
+            User user = userService.getUserByEmail(c_email);
 
-            // Redirect to cashier dashboard
+            // Save user + role into session
+            request.getSession().setAttribute("user", user);
+            request.getSession().setAttribute("role", user.getUserType().name());
+
+            // Redirect to dashboard
             response.sendRedirect(request.getContextPath() + "/cashier/index.jsp");
 
         } else {
-            // Set error message and redirect back to login
             request.setAttribute("error", "Invalid email or verification code");
             request.getRequestDispatcher("/cashier_login.jsp").forward(request, response);
         }
     }
 }
+

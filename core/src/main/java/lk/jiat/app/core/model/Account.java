@@ -10,7 +10,11 @@ import java.time.LocalDateTime;
 @Table(name = "account")
 @NamedQueries({
         @NamedQuery(name = "Account.findByAccountNumber", query = "SELECT a FROM Account a WHERE a.accountNumber = :accountNumber"),
-        @NamedQuery(name = "Account.findNoOfAccounts", query = "SELECT COUNT(a) FROM Account a WHERE a.customer_nic = :nic AND a.accountType = :type")
+        @NamedQuery(name = "Account.findNoOfAccounts", query = "select COUNT(a) from Account a where a.customer_nic = :nic AND a.accountType = :type"),
+        @NamedQuery(name = "Account.findAll",query = "select a from Account a order by a.createdAt DESC "),
+        @NamedQuery(name = "Account.findNIC",query = "select a from Account a where a.customer_nic = :nic ORDER BY a.createdAt DESC"),
+        @NamedQuery(name = "Account.findByType", query = "select a from Account a where a.accountType = :type")
+
 })
 public class Account implements Serializable {
 
