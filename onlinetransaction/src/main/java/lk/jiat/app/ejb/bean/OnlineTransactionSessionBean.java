@@ -1,6 +1,8 @@
 package lk.jiat.app.ejb.bean;
 
 import jakarta.ejb.Stateless;
+import jakarta.ejb.TransactionAttribute;
+import jakarta.ejb.TransactionAttributeType;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import lk.jiat.app.core.interceptor.Logged;
@@ -17,16 +19,13 @@ public class OnlineTransactionSessionBean implements TransactionService {
     @PersistenceContext
     private EntityManager em;
 
-
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     @Override
-    public void createTransaction(OnlineTransaction transaction) {
-
-        em.persist(transaction);
+    public void createTransaction(OnlineTransaction transaction) {em.persist(transaction);
     }
 
     @Override
-    public List<OnlineTransaction> getAllTransactions() {
-        return em.createNamedQuery("OnlineTransaction.findAll", OnlineTransaction.class)
+    public List<OnlineTransaction> getAllTransactions() {return em.createNamedQuery("OnlineTransaction.findAll", OnlineTransaction.class)
                 .getResultList();
     }
 
@@ -36,15 +35,13 @@ public class OnlineTransactionSessionBean implements TransactionService {
     }
 
     @Override
-    public List<OnlineTransaction> getTransactionsByAccount(String fromAccount) {
-        return em.createNamedQuery("OnlineTransaction.findByAccountNumber", OnlineTransaction.class)
+    public List<OnlineTransaction> getTransactionsByAccount(String fromAccount) {return em.createNamedQuery("OnlineTransaction.findByAccountNumber", OnlineTransaction.class)
                 .setParameter("fromAccount", fromAccount)
                 .getResultList();
     }
 
     @Override
-    public List<OnlineTransaction> findByDateRange(LocalDateTime from, LocalDateTime to) {
-        return em.createNamedQuery("OnlineTransaction.findByDate",OnlineTransaction.class)
+    public List<OnlineTransaction> findByDateRange(LocalDateTime from, LocalDateTime to) {return em.createNamedQuery("OnlineTransaction.findByDate",OnlineTransaction.class)
                 .setParameter("from", from)
                 .setParameter("to", to)
                 .getResultList();

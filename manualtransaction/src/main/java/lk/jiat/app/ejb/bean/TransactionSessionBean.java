@@ -1,7 +1,10 @@
 package lk.jiat.app.ejb.bean;
 
+import jakarta.annotation.security.PermitAll;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.ejb.Singleton;
+import jakarta.ejb.TransactionAttribute;
+import jakarta.ejb.TransactionAttributeType;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import lk.jiat.app.core.interceptor.Logged;
@@ -19,13 +22,14 @@ public class TransactionSessionBean  implements ManualTransferService {
     @PersistenceContext
     private EntityManager em;
 
-
-
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    @RolesAllowed({"MANAGER","CASHIER"})
     @Override
     public void createTransaction(ManualTransaction manualTransaction) {
         em.persist(manualTransaction);
     }
 
+    @RolesAllowed({"MANAGER"})
     @Override
     public List<ManualTransaction> getTransactionsByDate(LocalDateTime start, LocalDateTime end) {
         return em.createNamedQuery("ManualTransfer.findByDate",ManualTransaction.class)

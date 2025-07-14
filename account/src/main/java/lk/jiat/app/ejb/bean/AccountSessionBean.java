@@ -1,7 +1,11 @@
 package lk.jiat.app.ejb.bean;
 
+import jakarta.annotation.Resource;
+import jakarta.annotation.security.PermitAll;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.ejb.Stateless;
+import jakarta.ejb.TransactionAttribute;
+import jakarta.ejb.TransactionAttributeType;
 import jakarta.interceptor.Interceptors;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
@@ -27,8 +31,7 @@ public class AccountSessionBean implements AccountService {
     @PersistenceContext
     private EntityManager em;
 
-
-
+    @RolesAllowed({"MANAGER","CASHIER"})
     @Override
     public void createAccount(Account account) {
         String timestamp = LocalDateTime.now().format(java.time.format.DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
@@ -48,6 +51,7 @@ public class AccountSessionBean implements AccountService {
         return em.find(Account.class, id);
     }
 
+    @PermitAll
     @Override
     public Account findByAccountNumber(String accountNumber) {
 
@@ -97,6 +101,7 @@ public class AccountSessionBean implements AccountService {
         return accounts.isEmpty() ? null : accounts.get(0);
     }
 
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     @Override
     public void applyInterest(String type) {
         List<Account> accounts = em.createNamedQuery("Account.findByType", Account.class)

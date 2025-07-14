@@ -25,3 +25,7 @@ public class InterestScheduler {
         accountService.applyInterest("FIXED");
     }
 }
+
+
+
+

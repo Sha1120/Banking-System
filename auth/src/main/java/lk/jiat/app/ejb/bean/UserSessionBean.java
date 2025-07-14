@@ -19,7 +19,6 @@ public class UserSessionBean implements UserService {
     @PersistenceContext
     private EntityManager em;
 
-
     @Override
     public User getUserById(Long id) {
         return em.find(User.class, id);
@@ -31,7 +30,6 @@ public class UserSessionBean implements UserService {
                 .setParameter("email", email).getSingleResult();
     }
 
-
     @RolesAllowed({"MANAGER"})
     @Override
     public void addUser(User user) {
@@ -39,7 +37,7 @@ public class UserSessionBean implements UserService {
         em.persist(user);
     }
 
-
+    @RolesAllowed({"MANAGER"})
     @Override
     public void updateUser(User user) {
 
